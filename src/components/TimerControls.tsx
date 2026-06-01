@@ -14,7 +14,7 @@ export default function TimerControls({ status, dispatch }: Props) {
       <button
         onClick={() => dispatch({ type: isRunning ? 'PAUSE' : 'START' })}
         disabled={isFinished}
-        className="px-8 py-3 rounded-xl text-lg font-semibold transition-all
+        className="w-36 py-3 rounded-xl text-lg font-semibold transition-all
           bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white
           disabled:opacity-40 disabled:cursor-not-allowed"
       >
@@ -22,7 +22,7 @@ export default function TimerControls({ status, dispatch }: Props) {
       </button>
       <button
         onClick={() => dispatch({ type: 'RESET' })}
-        className="px-8 py-3 rounded-xl text-lg font-semibold transition-all
+        className="w-36 py-3 rounded-xl text-lg font-semibold transition-all
           bg-gray-700 hover:bg-gray-600 active:scale-95 text-white"
       >
         초기화

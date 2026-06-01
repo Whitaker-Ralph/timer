@@ -4,6 +4,7 @@ import { useTimer } from '../hooks/useTimer'
 import { useFullscreen } from '../hooks/useFullscreen'
 import { usePip } from '../hooks/usePip'
 import { usePresets } from '../hooks/usePresets'
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts'
 import { formatTime } from '../utils/time'
 import TimerDisplay from '../components/TimerDisplay'
 import TimerControls from '../components/TimerControls'
@@ -37,6 +38,25 @@ export default function TimerPage() {
     if (isFullscreen) exitFullscreen()
     else enterFullscreen()
   }
+
+  const handleStartPause = useCallback(() => {
+    if (state.status === 'running') dispatch({ type: 'PAUSE' })
+    else dispatch({ type: 'START' })
+  }, [state.status])
+
+  const handleReset = useCallback(() => dispatch({ type: 'RESET' }), [])
+
+  const handlePreset = useCallback((index: number) => {
+    const slot = slots[index]
+    if (slot) dispatch({ type: 'SET_TIME', seconds: slot.seconds })
+  }, [slots])
+
+  useKeyboardShortcuts({
+    onStartPause: handleStartPause,
+    onReset: handleReset,
+    onPreset: handlePreset,
+    onFullscreen: handleFullscreen,
+  })
 
   function handleMouseMove(e: React.MouseEvent) {
     if (!isFullscreen || state.alarmFired) return
